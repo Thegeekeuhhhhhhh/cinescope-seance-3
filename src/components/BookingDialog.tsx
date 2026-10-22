@@ -24,10 +24,10 @@ export default function BookingDialog({
   const errorList = Object.entries(errors) as [keyof Errors, string][];
   const target = function (f: keyof Errors) {
     return f == "tariff" ? id("tariff-standard") : id(f);
-  }
+  };
   const describedBy = function (f: keyof Errors) {
     return id(f + "-help") + (errors[f] ? " " + id(f + "-error") : "");
-  }
+  };
 
   useEffect(() => {
     if (errorList.length > 0) {
@@ -87,12 +87,21 @@ export default function BookingDialog({
             obligatoires.
           </p>
           {errorList.length > 0 && (
-            <div className="error-summary" ref={summaryRef} tabIndex={-1}
-              role="group" aria-labelledby={id("summary-title")}>
-              <h3 id={id("summary-title")}>Le formulaire contient des erreurs</h3>
+            <div
+              className="error-summary"
+              ref={summaryRef}
+              tabIndex={-1}
+              role="group"
+              aria-labelledby={id("summary-title")}
+            >
+              <h3 id={id("summary-title")}>
+                Le formulaire contient des erreurs
+              </h3>
               <ul>
                 {errorList.map(([f, msg]) => (
-                  <li key={f}><a href={"#" + target(f)}>{msg}</a></li>
+                  <li key={f}>
+                    <a href={"#" + target(f)}>{msg}</a>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -101,12 +110,14 @@ export default function BookingDialog({
             <p className="field-error">Certains champs sont incorrects.</p>
           )}
           <form noValidate onSubmit={submit}>
-            <fieldset className="form-group" aria-describedby={describedBy("tariff")}>
+            <fieldset
+              className="form-group"
+              aria-describedby={describedBy("tariff")}
+            >
               <legend>Type de place</legend>
               <p className="field-help" id={id("tariff-help")}>
                 Choisissez un type de place pour ce billet.
               </p>
-              {errors.tariff && <p className="field-error" id={id("tariff-error")}>{errors.tariff}</p>}
               <div className="radio-options">
                 <span>
                   <input
@@ -127,6 +138,11 @@ export default function BookingDialog({
                   <label htmlFor={id("tariff-student")}>Étudiant</label>
                 </span>
               </div>
+              {errors.tariff && (
+                <p className="field-error" id={id("tariff-error")}>
+                  {errors.tariff}
+                </p>
+              )}
             </fieldset>
             <div className="field">
               <label htmlFor={id("name")} className="field-label">
@@ -135,7 +151,6 @@ export default function BookingDialog({
               <p className="field-help" id={id("name-help")}>
                 Indiquez le nom de la personne qui réserve.
               </p>
-              {errors.name && <p className="field-error" id={id("name-error")}>{errors.name}</p>}
               <input
                 id={id("name")}
                 name="name"
@@ -144,6 +159,11 @@ export default function BookingDialog({
                 placeholder="Votre nom"
                 className={errors.name ? "invalid" : undefined}
               />
+              {errors.name && (
+                <p className="field-error" id={id("name-error")}>
+                  {errors.name}
+                </p>
+              )}
             </div>
             <div className="field">
               <label htmlFor={id("email")} className="field-label">
@@ -152,7 +172,6 @@ export default function BookingDialog({
               <p className="field-help" id={id("email-help")}>
                 Format attendu : nom@exemple.fr.
               </p>
-              {errors.email && <p className="field-error" id={id("email-error")}>{errors.email}</p>}
               <input
                 id={id("email")}
                 name="email"
@@ -162,6 +181,11 @@ export default function BookingDialog({
                 placeholder="Votre adresse"
                 className={errors.email ? "invalid" : undefined}
               />
+              {errors.email && (
+                <p className="field-error" id={id("email-error")}>
+                  {errors.email}
+                </p>
+              )}
             </div>
             <div className="dialog-actions">
               <button className="dialog-action" type="submit">
